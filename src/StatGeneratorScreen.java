@@ -1,23 +1,16 @@
-import java.util.Random;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.PlainDocument;
 
 public class StatGeneratorScreen extends JFrame {
 
-  private String[] heroNames;
-  private Random random = new Random();
-  private String[] statNames = { "Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma" };
-  private JLabel[] statLabels;
-  private JLabel remainingPointsLabel;
+  private final String[] heroNames;
+  private final StatGenerator[] heroStats = new StatGenerator[3];
+  private JButton doneButton;
   public StatGeneratorScreen(String[] heroNames){
 
     super("Stat Generator");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setSize(400, 300);
+    setSize(800, 600);
 
     this.heroNames = heroNames;
     // Create a panel to hold the components
@@ -33,21 +26,32 @@ public class StatGeneratorScreen extends JFrame {
 
       // Create a nested panel for the fillable boxes
       JPanel statsPanel = new JPanel();
-      StatGenerator charStats = new StatGenerator();
+      heroStats[i] = new StatGenerator();
       // Add fillable boxes for stats
       for (int j = 0; j < 6; j++) {
         JTextField textField = new JTextField();
-        textField.setText(charStats.getStatBlock()[j]);
+        textField.setText(heroStats[i].getStatBlock()[j]);
         textField.setPreferredSize(new Dimension(30, 20)); // Set preferred size
         statsPanel.add(textField);
       }
-
       panel.add(statsPanel);
     }
+    initializeDoneButton();
+    panel.add(doneButton);
 
     add(panel);
 
   setLocationRelativeTo(null); // Center the window on the screen
 }
-
+  private void initializeDoneButton() {
+    doneButton = new JButton("Done");
+    doneButton.addActionListener(e -> {
+      // Perform actions when the "Done" button is clicked
+      // For now, you can simply display a message
+      JOptionPane.showMessageDialog(null, "\"Now let the adventure start, best of luck hero. There are 18 quests to complete with your 3 heroes.");
+      GamePlayScreen gamePlayScreen = new GamePlayScreen(heroNames, heroStats,0,0);
+      gamePlayScreen.setVisible(true);
+      dispose();
+    });
+  }
 }

@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Random;
 
 //Can have stats be a list of integers, and use an index to collect a statistic when its relevant
@@ -8,9 +7,8 @@ public class StatGenerator {
   //Initializing a new array to hold the six basic stats
   //Strength, Dexterity, Constitution, Intelligence, Wisdom, and Charisma
   //Side Note: Will have to copy these references if we are creating a new stat block
-  private static String[] stringStatBlock = new String[6];
-  private static int[] intStatBlock = new int[6];
-  private static int[] modifiers = new int[6];
+  private static final String[] stringStatBlock = new String[6];
+  private static final int[] modifiers = new int[6];
 
   public StatGenerator(){
     statGenerator();
@@ -26,11 +24,14 @@ public class StatGenerator {
       //Generating a random object in the range from 0 to 20 - 1
       int stat = rand.nextInt(11) + 10;
       modifiers[i] = setModifier(stat);
-      intStatBlock[i] = stat;
       String statString = String.valueOf((stat));
       setStatBlock(i, statString);
 
     }
+  }
+
+  public int[] getModifiers() {
+    return modifiers;
   }
 
   private static int setModifier(int stat){
@@ -56,10 +57,3 @@ public class StatGenerator {
     }
   }
 }
-
-
-
-//instance variable
-//ctors
-//business methods
-//getter setters

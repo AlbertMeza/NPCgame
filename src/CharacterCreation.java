@@ -1,14 +1,12 @@
-
 import java.util.Random;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class CharacterCreation extends JFrame {
 
-  private static final DLList<String> randomNames = new DLList();
+  private static final DLList<String> randomNames = new DLList<>();
 
-  private JTextField[] nameFields;
+  private final JTextField[] nameFields;
   private static void addNames(){
     randomNames.add("Jon");
     randomNames.add("Jana");
@@ -36,7 +34,7 @@ public class CharacterCreation extends JFrame {
     public CharacterCreation() {
       super("Character Creation");
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      setSize(400, 300);
+      setSize(800, 600);
 
       // Create a label and text field to enter the hero name
       JLabel nameLabel1 = new JLabel("Let's name your first hero:");
@@ -50,32 +48,28 @@ public class CharacterCreation extends JFrame {
       JButton createButton = new JButton("Create");
 
       // Add an ActionListener to the random button
-      randomButton.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-          // Generate a random name from the predefinedNames array
-          Random random = new Random();
-          addNames();
-          for (int i = 0; i < 3; i++) {
-            int index = random.nextInt(randomNames.size());
-            String randomName = randomNames.get(index);
-            nameFields[i].setText(randomName);
-            randomNames.remove(i);
-          }
+      randomButton.addActionListener(e -> {
+        // Generate a random name from the predefinedNames array
+        Random random = new Random();
+        addNames();
+        for (int i = 0; i < 3; i++) {
+          int index = random.nextInt(randomNames.size());
+          String randomName = randomNames.get(index);
+          nameFields[i].setText(randomName);
+          randomNames.remove(i);
         }
       });
 
       // Create a "Create" button to proceed
-      createButton.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-          // Handle button click event
-          String[] heroNames = new String[3];
-          for (int i = 0; i < 3; i++) {
-            heroNames[i] = nameFields[i].getText();
-          }
-          StatGeneratorScreen statGeneratorScreen = new StatGeneratorScreen(heroNames);
-          statGeneratorScreen.setVisible(true);
-          dispose(); // Close the character creation screen
+      createButton.addActionListener(e -> {
+        // Handle button click event
+        String[] heroNames = new String[3];
+        for (int i = 0; i < 3; i++) {
+          heroNames[i] = nameFields[i].getText();
         }
+        StatGeneratorScreen statGeneratorScreen = new StatGeneratorScreen(heroNames);
+        statGeneratorScreen.setVisible(true);
+        dispose(); // Close the character creation screen
       });
 
       // Create a panel to hold the components

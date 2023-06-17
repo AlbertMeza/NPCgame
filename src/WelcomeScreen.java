@@ -1,41 +1,41 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
-  public class WelcomeScreen extends JFrame {
-    public WelcomeScreen() {
-      super("Welcome Screen");
-      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      setSize(400, 300);
+public class WelcomeScreen extends JFrame {
+  public WelcomeScreen() {
+    super("Welcome Screen");
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setSize(800, 600);
 
-      // Create a label with a greeting message
-      JLabel label = new JLabel("Last Minute Legends");
-      label.setFont(new Font("Arial", Font.BOLD, 24));
-      label.setHorizontalAlignment(SwingConstants.CENTER);
-      add(label, BorderLayout.CENTER);
+    // Create a panel with BorderLayout
+    JPanel panel = new JPanel(new BorderLayout());
 
-      // Create a button to proceed
-      JButton button = new JButton("Play");
-      button.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-          // Handle button click event
-          CharacterCreation characterCreationScreen = new CharacterCreation();
-          characterCreationScreen.setVisible(true);
-          dispose(); // Close the welcome screen
-        }
-      });
-      add(button, BorderLayout.SOUTH);
+    // Create a label with a greeting message
+    JLabel label = new JLabel("Last Minute Legends");
+    label.setFont(new Font("Arial", Font.BOLD, 24));
+    label.setHorizontalAlignment(SwingConstants.CENTER);
+    panel.add(label, BorderLayout.NORTH);
 
-      setLocationRelativeTo(null); // Center the window on the screen
-    }
+    // Create a label for the image
+    JLabel imageLabel = new JLabel();
+    ImageIcon imageIcon = new ImageIcon("src/OpenerPhoto.jpg");
+    imageLabel.setIcon(imageIcon);
+    panel.add(imageLabel, BorderLayout.CENTER);
 
-    public static void main(String[] args) {
-      SwingUtilities.invokeLater(new Runnable() {
-        public void run() {
-          WelcomeScreen welcomeScreen = new WelcomeScreen();
-          welcomeScreen.setVisible(true);
-        }
-      });
-    }
+    // Create a button to proceed
+    JButton button = new JButton("Play");
+    button.addActionListener(e -> {
+      // Handle button click event
+      CharacterCreation characterCreationScreen = new CharacterCreation();
+      characterCreationScreen.setVisible(true);
+      dispose(); // Close the welcome screen
+    });
+    panel.add(button, BorderLayout.SOUTH);
+
+    // Set the panel as the content pane
+    setContentPane(panel);
+    setLocationRelativeTo(null); // Center the window on the screen
   }
+}
+
 
